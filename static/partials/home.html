@@ -1,0 +1,107 @@
+<div id="home" class="content" ui-view autoscroll="true">
+
+   
+
+    <div id="header_logo" align="center" ui-sref="home" href="#/home">
+        <img src="images/header_logo_320x50.jpg" border="0">
+    </div>
+
+    <div ng-show="!authenticated" class="homeContent">
+
+        <div id="buttonBox" class="home_nav_items" ng-if="!authenticated">
+            <div id="loginButtons">
+                <button class="btn btn-clear" ui-sref="login">Login</button>
+                <button class="btn btn-link text-white" ui-sref="createAccount">Create Account </button>
+                <a ui-sref="about">
+                    <i ui-sref="settings.about" id="loginAbout" class="fa fa-info-circle btn btn-link" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div ng-show="authenticated" class="content">
+        <br/>
+        <br/>
+        <br/>
+        <div class="welcomeHeading text-center font-weight-light font-italic">
+            <h2>Welcome,
+                <br/>{{user.username}}</h2>
+            <br/>
+            <br/>
+
+
+        </div>
+        <div class="roundCard tappable" ui-sref="quiz.families">
+            <div class="row">
+                <div class="col-xs-3">
+                    <img src="../images/question-2.png" class="img img-responsive roundCardImage" />
+                </div>
+                <div class="col-xs-9">
+                    <div class="roundCardTitle">Take Quiz</div>
+                    <div class="roundCardInfo">
+                        Answer questions about you and your partner before reviewing your partner’s results
+                    </div>
+                    <span class="roundCardNavArrow glyphicon glyphicon-circle-arrow-right pull-right" aria-hidden="true"></span>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="roundCard tappable" ui-sref="confirmation">
+            <div class="row">
+                <div class="col-xs-3">
+                    <img src="../images/my-answers.png" class="img img-responsive roundCardImage" />
+                </div>
+                <div class="col-xs-9">
+                    <div class="roundCardTitle">My Answers</div>
+                    <div class="roundCardInfo">
+                        Review my answers before comparing with my partner.
+                    </div>
+                    <span class="roundCardNavArrow glyphicon glyphicon-circle-arrow-right pull-right" aria-hidden="true"></span>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="roundCard tappable" ui-sref="settings">
+            <div class="row">
+                <div class="col-xs-3">
+                    <img src="../images/profile.png" class="img img-responsive roundCardImage" />
+                </div>
+                <div class="col-xs-9">
+                    <div class="roundCardTitle">Profile</div>
+                    <div class="roundCardInfo">
+                        View my username, update my partner's username, and general app information.
+                    </div>
+                    <span class="roundCardNavArrow glyphicon glyphicon-circle-arrow-right pull-right" aria-hidden="true"></span>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <div class="roundCard tappable" ui-sref="about">
+            <div class="row">
+                <div class="col-xs-3">
+                    <img src="../images/eye.png" class="img img-responsive roundCardImage" />
+                </div>
+                <div class="col-xs-9">
+                    <div class="roundCardTitle">About the App</div>
+                    <div class="roundCardInfo">
+                        Learn about the app and the creators </div>
+                    <span class="roundCardNavArrow glyphicon glyphicon-circle-arrow-right pull-right" aria-hidden="true"></span>
+                </div>
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+
+
+        <br/>
+    </div>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+
+</div>

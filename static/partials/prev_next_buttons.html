@@ -1,0 +1,17 @@
+<div id="prev_next">
+    <div id="prev" ng-if="quizState.previous">
+        <button class="btn btn-clear" ng-click="goToPreviousState()">
+                <span class="glyphicon glyphicon-circle-arrow-left" aria-hidden="true"></span>
+
+            Previous</button>
+    </div>
+    <div id="next" ng-if="quizState.next">
+        <button class="btn btn-clear" ng-click="goToNextState()">Next
+                <span class="glyphicon glyphicon-circle-arrow-right" aria-hidden="true"></span>
+
+        </button>
+    </div>
+    <br/>
+    <br/>
+</div>
+<!--    <button class="btn btn-primary" ui-sref="confirmation">Confirm your answers</button>-->
