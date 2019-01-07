@@ -1,0 +1,26 @@
+{
+  "name": "facing-ahead",
+  "version": "0.0.1",
+  "description": "The Facing Ahead web application",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "S&K Publishers",
+  "dependencies": {
+    "@uirouter/angularjs": "^1.0.20",
+    "angular": "^1.5.7",
+    "angular-animate": "^1.5.0",
+    "angular-aria": "^1.5.0",
+    "angular-material": "^1.1.0",
+    "angular-messages": "^1.7.5",
+    "angular-strap": "^2.3.9",
+    "bootstrap": "^3.3.1",
+    "fastclick": "^1.0.6",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.3.1",
+    "jquery-mobile": "^1.5.0-alpha.1"
+  }
+}

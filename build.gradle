@@ -25,10 +25,14 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web")
-    testCompile('org.springframework.boot:spring-boot-starter-test')
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+    
+    compile 'org.springframework.boot:spring-boot-starter-web:2.1.0.RELEASE'
+//    compile 'org.springframework.security:spring-security-web:5.1.1.RELEASE'
+//    compile 'org.springframework.security:spring-security-com.facingahead.config:5.1.1.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-security:2.1.0.RELEASE'
+    compile 'com.braintreepayments.gateway:braintree-java:2.87.0'
+    compile 'org.springframework.boot:spring-boot-starter-data-mongodb:2.1.0.RELEASE'
+    
+    testCompile 'com.jayway.jsonpath:json-path:2.4.0'
+    testCompile 'org.springframework.boot:spring-boot-test:2.1.0.RELEASE'
 }
