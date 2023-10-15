@@ -9,6 +9,7 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
 apply plugin: 'idea'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'org.springframework.boot'
@@ -35,4 +36,17 @@ dependencies {
 
     testCompile 'com.jayway.jsonpath:json-path:2.4.0'
     testCompile 'org.springframework.boot:spring-boot-test:3.0.2'
+
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.facingahead'
+            artifactId = 'app'
+            version = '1.0'
+
+            from components.java
+        }
+    }
 }
