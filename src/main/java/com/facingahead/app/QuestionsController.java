@@ -3,6 +3,7 @@ package com.facingahead.app;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -51,26 +52,31 @@ public class QuestionsController {
 	/* Update a question */
 	@RequestMapping(value = "/questions/{id}", method = RequestMethod.POST)
 	public Question updateQuestion(@PathVariable("id") String id, @RequestBody QuestionDTO questionDTO) {
-		Question p = questionsRepository.findOne(id);
+		Optional<Question> pOptional = questionsRepository.findById(id);
 
-		if (questionDTO.getCategory() != null) {
-			p.setCategory(questionDTO.getCategory());
-		}
+		if (pOptional.isPresent()) {
+			Question p = pOptional.get();
+			if (questionDTO.getCategory() != null) {
+				p.setCategory(questionDTO.getCategory());
+			}
 
-		if (questionDTO.getText() != null) {
-			p.setText(questionDTO.getText());
-		}
-		
-		if (questionDTO.getWhy() != null) {
-			p.setWhy(questionDTO.getWhy());
-		}
+			if (questionDTO.getText() != null) {
+				p.setText(questionDTO.getText());
+			}
 
-		if (questionDTO.getOrder() != null) {
-			p.setOrder(questionDTO.getOrder());
-		}
+			if (questionDTO.getWhy() != null) {
+				p.setWhy(questionDTO.getWhy());
+			}
 
-		Question updatedQuestion = questionsRepository.save(p);
-		return updatedQuestion;
+			if (questionDTO.getOrder() != null) {
+				p.setOrder(questionDTO.getOrder());
+			}
+			Question updatedQuestion = questionsRepository.save(p);
+			return updatedQuestion;
+		}
+		//didn't find the original question, should we be throwing an exception?
+		return null;
+
 	}
 
 	@RequestMapping(value = "/questions", method = RequestMethod.GET)
@@ -86,9 +92,13 @@ public class QuestionsController {
 
 	@RequestMapping(value = "/questions/{id}", method = RequestMethod.DELETE)
 	public Question deleteQuestion(@PathVariable("id") String id) {
-		Question p = questionsRepository.findOne(id);
-		questionsRepository.delete(p);
-		return p;
+		Optional<Question> optionalQuestion = questionsRepository.findById(id);
+		if (optionalQuestion.isPresent()) {
+			Question p = optionalQuestion.get();
+			questionsRepository.delete(p);
+			return p;
+		}
+		return null;
 	}
 
 }

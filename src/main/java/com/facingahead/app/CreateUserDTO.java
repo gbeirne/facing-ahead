@@ -1,5 +1,7 @@
 package com.facingahead.app;
 
+import org.springframework.core.style.ToStringCreator;
+
 public class CreateUserDTO {
 
 	private String username;
@@ -55,6 +57,15 @@ public class CreateUserDTO {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String toString(){
+		ToStringCreator tsc = new ToStringCreator(this);
+		return tsc.append("uniqueCode", this.uniqueCode)
+				.append("username", this.username)
+				.append("password", this.password)
+				.append("name", this.name)
+				.toString();
 	}
 
 }

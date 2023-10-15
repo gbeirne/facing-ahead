@@ -56,7 +56,7 @@ public class SecUserDetails implements UserDetails {
 	}
 	
 	public String getRole() {
-		return this.user.getRole();
+    	return this.user.getRole();
 	}
   
 }

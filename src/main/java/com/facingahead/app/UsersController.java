@@ -3,10 +3,12 @@ package com.facingahead.app;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,8 +26,7 @@ public class UsersController {
 	@Autowired
 	private QuestionRepository questionsRepository;
 
-//	@Autowired
-//	private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+	private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
 	@RequestMapping(value = "/create/user", method = RequestMethod.POST)
 	public User createUser(@RequestBody CreateUserDTO createUserDTO, Principal principalUser,
@@ -33,9 +34,11 @@ public class UsersController {
 
 		// check to see if the user exists
 		User existingUser = usersRepository.findByUsername(createUserDTO.getUsername().toLowerCase());
-		if (existingUser == null) {
-			if (createUserDTO.getUsername().contains("@")) {
+		if (existingUser == null || false) {
+			if (createUserDTO.getUsername().matches("(.+?)@(.+?)\\.(.+?)")) {
 				QuizResponse newQuizResponse = new QuizResponse(questionsRepository.findAll());
+
+				createUserDTO.setPassword(bCryptPasswordEncoder.encode(createUserDTO.getPassword()));
 
 				// save the user with a lowercase username to make everyone the same
 				User savedUser = usersRepository.save(new User(createUserDTO, newQuizResponse));
@@ -54,10 +57,13 @@ public class UsersController {
 
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
 	public User updateUser(@PathVariable("id") String id, @ModelAttribute User user) {
-		User savedUser = usersRepository.findOne(id);
-		savedUser.updateValues(user);
-		User updatedUser = usersRepository.save(savedUser);
-		return updatedUser;
+		Optional<User> optionalUser = usersRepository.findById(id);
+		if (optionalUser.isPresent()) {
+			User savedUser = optionalUser.get();
+			savedUser.updateValues(user);
+			return usersRepository.save(savedUser);
+		}
+		return null;
 	}
 
 	@RequestMapping(value = "/users/{currentUsername:.+}/{partnerUsername:.+}", method = RequestMethod.PUT)
@@ -75,11 +81,6 @@ public class UsersController {
 		}
 	}
 
-	@RequestMapping(value = "/users", method = RequestMethod.GET)
-	public List<User> getUsers() {
-		return usersRepository.findAll();
-	}
-
 	@RequestMapping(value = "/simpleUsers", method = RequestMethod.GET)
 	public List<SimpleUser> getSimpleUsers() {
 		List<User> users = usersRepository.findAll();
@@ -89,12 +90,6 @@ public class UsersController {
 		}
 		return simpleUsers;
 	}
-
-	// @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
-	// public User getUser(@PathVariable("id") String id) {
-	// User p = usersRepository.findOne(id);
-	// return p;
-	// }
 
 	public void determineIfAbleToCompareResults(User user) {
 		user.getQuizResponse().allQuestionsAnswered();
@@ -110,10 +105,14 @@ public class UsersController {
 
 	@RequestMapping(value = "/users/{id}/clearQuestionAnswers", method = RequestMethod.GET)
 	public User clearQuizResponse(@PathVariable("id") String id) {
-		User p = usersRepository.findOne(id);
-		p.getQuizResponse().getQuestionAnswers().clear();
-		usersRepository.save(p);
-		return p;
+		Optional<User> optionalUser = usersRepository.findById(id);
+		if (optionalUser.isPresent()) {
+			User p = optionalUser.get();
+			p.getQuizResponse().getQuestionAnswers().clear();
+			usersRepository.save(p);
+			return p;
+		}
+		return null;
 	}
 
 	@RequestMapping(value = "/users/{username:.+}/quizResponse", method = RequestMethod.GET)
@@ -229,9 +228,13 @@ public class UsersController {
 
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
 	public User deleteUser(@PathVariable("id") String id) {
-		User p = usersRepository.findOne(id);
-		usersRepository.delete(p);
-		return p;
+		Optional<User> optionalUser = usersRepository.findById(id);
+		if (optionalUser.isPresent()) {
+			User p = optionalUser.get();
+			usersRepository.delete(p);
+			return p;
+		}
+		return null;
 	}
 
 	// One-time use method to encryp all users' passwords in the system

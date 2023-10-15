@@ -1,11 +1,14 @@
 package com.facingahead.app;
 
+import org.springframework.core.style.ToStringCreator;
 import org.springframework.data.annotation.Id;
 
+import java.util.Objects;
+
 public class Question {
-	private final String yes = "YES";
-	private final String no = "NO";
-	private final String maybe = "MAYBE";
+	private static final String YES = "YES";
+	private static final String NO = "NO";
+	private static final String MAYBE = "MAYBE";
 
 	@Id
 	private String id;
@@ -66,6 +69,31 @@ public class Question {
 		this.why = why;
 	}
 	
-	
+	@Override
+	public String toString(){
+		ToStringCreator tsc = new ToStringCreator(this)
+				.append("id", this.id)
+				.append("text", this.text)
+				.append("order", this.order)
+				.append("why", this.why);
+		return tsc.toString();
+	}
+
+	@Override
+	public boolean equals(Object comp){
+		if(comp instanceof Question){
+			Question q = (Question) comp;
+			return q.text.equalsIgnoreCase(this.text) &&
+					q.category.equalsIgnoreCase(this.category) &&
+					q.why.equalsIgnoreCase(this.why) &&
+					q.order.equalsIgnoreCase(this.order);
+		}
+		return false;
+	}
+
+	@Override
+	public int hashCode(){
+		return Objects.hash(this.text, this.category, this.why, this.order);
+	}
 
 }

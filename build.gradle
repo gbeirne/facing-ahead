@@ -3,17 +3,18 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.7.13")
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-apply plugin: 'spring-boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'org.springframework.boot'
 
 jar {
-    baseName = 'gs-rest-service'
+    archivesBaseName = 'gs-rest-service'
     version =  '0.1.0'
 }
 
@@ -26,13 +27,12 @@ targetCompatibility = 1.8
 
 dependencies {
     
-    compile 'org.springframework.boot:spring-boot-starter-web:2.1.0.RELEASE'
-//    compile 'org.springframework.security:spring-security-web:5.1.1.RELEASE'
-//    compile 'org.springframework.security:spring-security-com.facingahead.config:5.1.1.RELEASE'
-    compile 'org.springframework.boot:spring-boot-starter-security:2.1.0.RELEASE'
-    compile 'com.braintreepayments.gateway:braintree-java:2.87.0'
-    compile 'org.springframework.boot:spring-boot-starter-data-mongodb:2.1.0.RELEASE'
-    
+    compile 'org.springframework.boot:spring-boot-starter-web:2.7.13'
+    compile 'org.springframework.boot:spring-boot-starter-security:2.7.13'
+    compile 'org.springframework.boot:spring-boot-starter-data-mongodb:2.7.13'
+    compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-csv:2.8.1'
+
+
     testCompile 'com.jayway.jsonpath:json-path:2.4.0'
-    testCompile 'org.springframework.boot:spring-boot-test:2.1.0.RELEASE'
+    testCompile 'org.springframework.boot:spring-boot-test:3.0.2'
 }

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SecUserDetailsService implements UserDetailsService{
-	
+
 	@Autowired
 	private UsersRepository userRepository;
 
