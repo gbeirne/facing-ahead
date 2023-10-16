@@ -7,8 +7,8 @@
   <!-- do_not_remove: published-with-gradle-metadata -->
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.facingahead</groupId>
-  <artifactId>app</artifactId>
-  <version>1.0</version>
+  <artifactId>gs-rest-service</artifactId>
+  <version>0.1.0</version>
   <packaging>pom</packaging>
   <dependencies>
     <dependency>
