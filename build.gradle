@@ -14,14 +14,12 @@ apply plugin: 'idea'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'org.springframework.boot'
 
-jar {
-    archivesBaseName = 'gs-rest-service'
-    version =  '0.1.0'
-}
 
 repositories {
     mavenCentral()
 }
+
+
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -49,4 +47,16 @@ publishing {
             from components.java
         }
     }
+}
+
+
+jar {
+    manifest {
+        attributes(
+                'Class-Path': configurations.compile.collect { it.getName() }.join(' '),
+                'Main-Class': 'com.facingahead.app.Application'
+        )
+    }
+    archivesBaseName = 'gs-rest-service'
+    version =  '0.1.0'
 }
