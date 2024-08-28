@@ -24,7 +24,6 @@ mainModule.controller('LoginController', function ($rootScope, $scope, $http, $l
             }
             callback && callback();
         }, function (response) {
-            console.log(response);
             $rootScope.authenticated = false;
             callback && callback();
         });
